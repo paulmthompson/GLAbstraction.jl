@@ -10,7 +10,7 @@ branches:
 notifications:
   email: false
 before install:
-	- yes | sudo add-apt-repository ppa:kalakris/cmake
+	- sudo add-apt-repository ppa:kalakris/cmake
 	- apt-get update -qq
 install: sudo apt-get update -qq
 addons:
