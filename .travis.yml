@@ -27,8 +27,11 @@ addons:
          - libglu1-mesa-dev
          - libgl1-mesa-dev
          - libxcursor-dev
-before install:
-  - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_963.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :963 -ac -screen 0 800x600x16 --use-gl=osmesa"
+         - libgl1-mesa-swx11-dev
+before_script:
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+  - sleep 3 
 script:
   - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
   - julia ./test/prepare_tests.jl
