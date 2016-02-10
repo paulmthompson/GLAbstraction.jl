@@ -1,7 +1,8 @@
-using GLAbstraction, GLWindow, GLFW, FixedSizeArrays, FixedPointNumbers
-using Base.Test
-GLFW.Init()
-createwindow("test", 20,20)
+module Accessors_Test
+
+using GLAbstraction, GLWindow, GLFW, FixedSizeArrays, FixedPointNumbers, FactCheck
+
+win=create_glcontext("test")
 
 immutable SpriteStyle{T} <: FixedVector{2, T}
 	#color_id::T # lookup attribute_id for attribute texture
@@ -39,25 +40,27 @@ push!(TEST_2D, Point{4, Int8}[rand(Point{4, Int8}) for i=1:N,j=1:N])
 
 
 test_data = Dict(
-	TEST_1D 	=> map(Texture, TEST_1D),
-	TEST_1D 	=> map(TextureBuffer, TEST_1D),
-	TEST_1D 	=> map(GLBuffer, TEST_1D),
-	TEST_2D		=> map(Texture, TEST_2D)
+	TEST_1D => map(Texture, TEST_1D),
+	TEST_1D => map(TextureBuffer, TEST_1D),
+	TEST_1D => map(GLBuffer, TEST_1D),
+	TEST_2D	=> map(Texture, TEST_2D)
 )
 
-function test()
-	for (origins, gpu_arrays) in test_data
-		from_gpu = map(gpu_data, gpu_arrays)
-		@test from_gpu == origins
-		for (origin, gpu_array) in zip(origins, gpu_arrays)
-			if ndims(gpu_array) == 1
-				newdata 		= copy(origin[11:20])
-				origin[1:10] 	= newdata
-				gpu_array[1:10] = newdata
-				@test origin == gpu_data(gpu_array)
-			end
-		end
-	end
+facts() do
+    for (origins, gpu_arrays) in test_data
+        from_gpu = map(gpu_data, gpu_arrays)
+        @fact from_gpu --> origins
+        for (origin, gpu_array) in zip(origins, gpu_arrays)
+	    if ndims(gpu_array) == 1
+	        newdata 		= copy(origin[11:20])
+	        origin[1:10] 	= newdata
+	        gpu_array[1:10] = newdata
+	        @fact origin --> gpu_data(gpu_array)
+	    end
+        end
+    end
 end
 
-test()
+GLFW.DestroyWindow(win)
+
+end

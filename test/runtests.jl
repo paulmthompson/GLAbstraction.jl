@@ -1,51 +1,12 @@
-using GLAbstraction, GeometryTypes, ModernGL, Compat, FileIO, GLWindow, FixedSizeArrays, FixedPointNumbers, ColorTypes
-using Base.Test
+module TestSetup
 
-
-function is_ci()
-	get(ENV, "TRAVIS", "") == "true" || get(ENV, "APPVEYOR", "") == "true" || get(ENV, "CI", "") == "true"
-end
+using GLAbstraction
 
 include("macro_test.jl")
-
-if !is_ci() # only do test if not CI... this is for automated testing environments which fail for OpenGL stuff, but I'd like to test if at least including works
-
-window = createwindow("test", 500,500)
-
 include("accessors.jl")
 include("uniforms.jl")
 include("texture.jl")
-
-# Test for creating a GLBuffer with a 1D Julia Array
-# You need to supply the cardinality, as it can't be inferred
-# indexbuffer is a shortcut for GLBuffer(GLUInt[0,1,2,2,3,0], 1, buffertype = GL_ELEMENT_ARRAY_BUFFER)
-indexes = indexbuffer(GLuint[0,1,2])
-# Test for creating a GLBuffer with a 1D Julia Array of Vectors
-#v = Vec2f[Vec2f(0.0, 0.5), Vec2f(0.5, -0.5), Vec2f(-0.5,-0.5)]
-
-v = Vec2f0[Vec2f0(0.0, 0.5), Vec2f0(0.5, -0.5), Vec2f0(-0.5,-0.5)]
-
-verts = GLBuffer(v)
-# lets define some uniforms
-# uniforms are shader variables, which are supposed to stay the same for an entire draw call
-
-const triangle = RenderObject(
-	Dict(
-		:vertex => verts,
-		:name_doesnt_matter_for_indexes => indexes
-	),
-	TemplateProgram(load("test.vert"), load("test.frag"))
-)
-
-postrender!(triangle, render, triangle.vertexarray)
-
-glClearColor(0,0,0,1)
-while isopen(window)
-  	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
-	render(triangle)
-	swapbuffers(window)
-	pollevents(window)
-	sleep(0.01)
-end
+include("buffer_test.jl")
+include("renderobj_test.jl")
 
 end

@@ -1,3 +1,7 @@
+module Macro_Test
+
+using FactCheck, GLAbstraction, Compat
+
 dicta = @compat Dict(
 	:a => 2332,
 	:b => 777,
@@ -11,22 +15,32 @@ dictb = @compat Dict(
 )
 
 @materialize a,b,c = dicta
-@test a == dicta[:a]
-@test b == dicta[:b]
-@test c == dicta[:c]
+
+facts() do
+    @fact a --> dicta[:a]
+    @fact b --> dicta[:b]
+    @fact c --> dicta[:c]
+end
 
 @materialize! a,b,c = dictb
-@test a == dicta[:a]
-@test b == dicta[:b]
-@test c == dicta[:c]
-@test isempty(dictb)
+
+facts() do
+    @fact a --> dicta[:a]
+    @fact b --> dicta[:b]
+    @fact c --> dicta[:c]
+    @fact isempty(dictb) --> true
+end
 
 @materialize a,b,c = @compat Dict(
 	:a => 2332,
 	:b => 777,
 	:c => 999,
-)
-@test a == dicta[:a]
-@test b == dicta[:b]
-@test c == dicta[:c]
+    )
 
+facts() do
+    @fact a --> dicta[:a]
+    @fact b --> dicta[:b]
+    @fact c --> dicta[:c]
+end
+
+end

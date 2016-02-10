@@ -1,6 +1,12 @@
-a = Vec4f0(0)
-b = Vec2f0(2)
-c = Vec4f0(b, 1,2)
+module Uniform_Test
+
+using GLAbstraction, GLWindow, GLFW, GeometryTypes, FixedSizeArrays, FactCheck
+
+win=create_glcontext("uniform test")
+
+a = Point4f0(0)
+b = Point2f0(2)
+c = Point4f0(b, 1,2)
 d = Vec{4, Int}(b, 1,2)
 d = Vec{4, UInt}(b, 1,2)
 
@@ -14,3 +20,11 @@ gluniform(Int32(1), a)
 gluniform(Int32(1), [a,a])
 gluniform(Int32(1), m)
 gluniform(Int32(1), [m, m])
+
+facts() do
+
+end
+
+GLFW.DestroyWindow(win)
+
+end
