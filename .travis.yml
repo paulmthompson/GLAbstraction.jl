@@ -19,6 +19,9 @@ addons:
          - libgtk-3-0
          - cmake
          - libxxf86vm-dev
+         - libx11-dev
+         - libgl1-mesa-dev
+         - libglu1-mesa-dev
 script:
   - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
   - julia ./test/prepare_tests.jl
