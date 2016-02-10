@@ -42,6 +42,7 @@ addons:
          - libgl1-mesa-dri
          - libgles2-mesa
 before_script:
+  - export MESA_GL_VERSION_OVERRIDE=4.0
   - "export DISPLAY=:99.0"
   - /sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -screen 0 1400x900x24 -ac +extension GLX +render
   - sleep 3 
