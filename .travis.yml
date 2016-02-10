@@ -22,6 +22,7 @@ addons:
          - libx11-dev
          - libgl1-mesa-dev
          - libglu1-mesa-dev
+         - libgl-dev
 before_script:
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start" # X virtual framebuffer
