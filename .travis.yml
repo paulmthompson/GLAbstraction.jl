@@ -17,6 +17,7 @@ addons:
          - xauth
          - libgtk-3-0
          - cmake
+         - libxxf86vm-dev
 script:
   - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
   - julia ./test/prepare_tests.jl
