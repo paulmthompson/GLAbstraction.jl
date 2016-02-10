@@ -3,11 +3,16 @@ os:
   - linux
 julia:
   - 0.4
+sudo: true
 branches:
   only:
     - sd/next²
 notifications:
   email: false
+before install:
+	- yes | sudo add-apt-repository ppa:kalakris/cmake
+	- apt-get update -qq
+install: sudo apt-get update -qq
 addons:
    apt:
       packages:
