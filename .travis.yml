@@ -21,4 +21,5 @@ addons:
 script:
   - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
   - julia ./test/prepare_tests.jl
+  - mkdir /dev/input
   - xvfb-run julia --check-bounds=yes --depwarn=no -e 'Pkg.clone(pwd()); Pkg.build("GLAbstraction"); Pkg.test("GLAbstraction"; coverage=true)'
