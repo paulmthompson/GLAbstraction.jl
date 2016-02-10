@@ -1,9 +1,20 @@
 language: julia
 os:
   - linux
-  - osx
 julia:
   - 0.4
+branches:
+  only:
+    - sd/next%C2%B2
 notifications:
   email: false
-# uncomment the following lines to override the default test script
+addons:
+   apt:
+      packages:
+         - xvfb
+         - xauth
+         - libgtk-3-0
+script:
+  - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
+  - julia ./test/prepare_tests.jl
+  - xvfb-run julia --check-bounds=yes --depwarn=no -e 'Pkg.clone(pwd()); Pkg.build("GLAbstraction"); Pkg.test("GLAbstraction"; coverage=true)'
