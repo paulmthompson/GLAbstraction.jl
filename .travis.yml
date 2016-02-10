@@ -20,8 +20,8 @@ addons:
          - cmake
          - libxxf86vm-dev
          - libx11-dev
-         - libgl1-mesa-dev
-         - libglu1-mesa-dev
+         - fglrx
+         - opencl-headers
          - libgl-dev
 before_script:
   - "export DISPLAY=:99.0"
