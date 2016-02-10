@@ -3,22 +3,18 @@ os:
   - linux
 julia:
   - 0.4
-sudo: true
 branches:
   only:
     - sd/next²
 notifications:
   email: false
-before install:
-  - sudo add-apt-repository ppa:kubuntu-ppa/backports - y
-  - sudo apt-get update -qq
-  - sudo apt-get install -qq cmake=2.8.12.2-0ubuntu1~ubuntu12.04.1~ppa2
 addons:
    apt:
       packages:
          - xvfb
          - xauth
          - libgtk-3-0
+         - cmake
 script:
   - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
   - julia ./test/prepare_tests.jl
