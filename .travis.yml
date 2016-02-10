@@ -14,17 +14,13 @@ addons:
       sources:
          - kubuntu-backports
       packages:
-#virtual x environment
          - xvfb
          - xauth
-#GTK for GUI
          - libgtk-3-0
-#Newer Cmake needed for making glfw in glfw.jl
          - cmake
-#just dumping random gpu libraries to try to make this work on travis
          - libxxf86vm-dev
          - libx11-dev
-	 - xorg-dev
+         - xorg-dev
          - opencl-headers
          - libglew-dev
          - libosmesa6-dev
