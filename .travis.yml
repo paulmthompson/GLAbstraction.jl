@@ -3,6 +3,7 @@ os:
   - linux
 julia:
   - 0.4
+sudo: required
 branches:
   only:
     - sd/next²
@@ -21,5 +22,5 @@ addons:
 script:
   - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
   - julia ./test/prepare_tests.jl
-  - mkdir /dev/input
+  - sudo mkdir /dev/input
   - xvfb-run julia --check-bounds=yes --depwarn=no -e 'Pkg.clone(pwd()); Pkg.build("GLAbstraction"); Pkg.test("GLAbstraction"; coverage=true)'
