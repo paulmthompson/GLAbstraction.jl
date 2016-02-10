@@ -25,6 +25,8 @@ addons:
          - libgl-dev
          - libglew-dev
          - libosmesa6-dev
+         - libglu1-mesa-dev
+         - xorg-dev
 before_script:
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start" # X virtual framebuffer
