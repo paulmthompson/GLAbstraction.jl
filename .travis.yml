@@ -14,21 +14,17 @@ addons:
       sources:
          - kubuntu-backports
       packages:
-	#virtual x environment
+#virtual x environment
          - xvfb
          - xauth
-
-	#GTK for GUI
+#GTK for GUI
          - libgtk-3-0
-
-	#Newer Cmake needed for making glfw in glfw.jl
+#Newer Cmake needed for making glfw in glfw.jl
          - cmake
-
-	#just dumping random gpu libraries to try to make this work on travis
-         - libxxf86vm-dev #gamma ramp support
+#just dumping random gpu libraries to try to make this work on travis
+         - libxxf86vm-dev
          - libx11-dev
 	 - xorg-dev
-
          - opencl-headers
          - libglew-dev
          - libosmesa6-dev
@@ -36,7 +32,7 @@ addons:
          - libgl1-mesa-dev
 before_script:
   - "export DISPLAY=:99.0"
-  - "sh -e /etc/init.d/xvfb start" # X virtual framebuffer
+  - "sh -e /etc/init.d/xvfb start"
 script:
   - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
   - julia ./test/prepare_tests.jl
