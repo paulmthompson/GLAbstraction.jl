@@ -28,7 +28,6 @@ addons:
          - libgl1-mesa-dev
          - libxcursor-dev
          - libegl1-mesa
-         - libdbus-1-dev
          - libpulse-dev
          - libx11-dev
          - libxext-dev
@@ -39,12 +38,12 @@ addons:
          - libxt-dev
          - libxv-dev
          - libasound2-dev
-         - libts-dev
          - libudev-dev
          - libgl1-mesa-dri
+         - libgles2-mesa
 before_script:
   - "export DISPLAY=:99.0"
-  - /sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -screen 0 1400x900x24 -ac +extension GLX +render;
+  - /sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -screen 0 1400x900x24 -ac +extension GLX +render
   - sleep 3 
 script:
   - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
