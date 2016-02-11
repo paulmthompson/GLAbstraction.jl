@@ -45,7 +45,7 @@ addons:
          - xserver-xorg-video-dummy
 before_script:
   - "export DISPLAY=:99"
-  - xpra --xvfb="Xorg +extension GLX -config `pwd`/test/dummy.xorg.conf -logfile ${HOME}/.xpra/xorg.log"  start :99
+  - xpra --xvfb="Xorg +extension GLX +extension RANDR -config `pwd`/test/dummy.xorg.conf -logfile ${HOME}/.xpra/xorg.log"  start :99
   - sleep 3 
 script:
   - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
