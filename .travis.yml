@@ -42,7 +42,7 @@ addons:
          - libgl1-mesa-dri
          - libgles2-mesa
          - xpra
-         - xserver-xorg-video-xdummy
+         - xserver-xorg-video-dummy
 before_script:
   - "export DISPLAY=:99"
   - xpra --xvfb=\"Xorg +extension GLX -config my.xorg.conf -logfile ${HOME}/.xpra/xorg.log\"  start :99
