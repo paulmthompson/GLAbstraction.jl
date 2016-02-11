@@ -41,10 +41,11 @@ addons:
          - libudev-dev
          - libgl1-mesa-dri
          - libgles2-mesa
+         - xpra
+         - xserver-xorg-video-xdummy
 before_script:
-  - export MESA_GL_VERSION_OVERRIDE=4.0
-  - "export DISPLAY=:99.0"
-  - /sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -screen 0 1400x900x24 -ac +extension GLX +render
+  - "export DISPLAY=:99"
+  - xpra --xvfb=\"Xorg +extension GLX -config my.xorg.conf -logfile ${HOME}/.xpra/xorg.log\"  start :99
   - sleep 3 
 script:
   - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
