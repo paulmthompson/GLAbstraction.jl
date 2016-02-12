@@ -3,6 +3,7 @@ module TestSetup
 using GLAbstraction
 
 include("macro_test.jl")
+include("glfw_test.jl")
 include("accessors.jl")
 include("uniforms.jl")
 include("texture.jl")
