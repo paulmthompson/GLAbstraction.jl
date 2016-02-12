@@ -2,6 +2,7 @@
 Pkg.rm("GLFW")
 
 Pkg.clone("https://github.com/paulmthompson/GLFW.jl")
+Pkg.build("GLFW")
 
 Pkg.clone("https://github.com/paulmthompson/GLWindow.jl")
 
